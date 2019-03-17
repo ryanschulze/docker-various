@@ -54,7 +54,7 @@ RUN apt-get update && \
 	&& apt-get clean \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& yarn global add puppeteer@1.5.0 && yarn cache clean \
+	&& yarn global add puppeteer@1.13.0 && yarn cache clean \
 	&& groupadd -r puppet \
 	&& useradd -r -g puppet -G audio,video puppet \
 	&& mkdir -p /home/puppet/Downloads /output /app \
