@@ -3,7 +3,12 @@ FROM node:8-slim
 LABEL maintainer="Ryan Schulze - https://github.com/ryanschulze"
 LABEL description="Puppeteer"
 
-RUN apt-get update && \
+ARG Puppeteer_VERSION=latest
+SHELL ["/bin/bash", "-c"]
+
+RUN Puppeteer_VERSION=$(wget -qO - "https://api.github.com/repos/GoogleChrome/puppeteer/releases/latest"|grep tag_name|cut -d\" -f4|tr -d 'v') || true && \
+    echo "[i] Using Puppeteer version ${Puppeteer_VERSION}" && \
+    apt-get update && \
 	apt-get install -yq \
 	gconf-service \
 	libasound2 \
@@ -54,7 +59,7 @@ RUN apt-get update && \
 	&& apt-get clean \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& yarn global add puppeteer@1.13.0 && yarn cache clean \
+	&& yarn global add puppeteer@${Puppeteer_VERSION} && yarn cache clean \
 	&& groupadd -r puppet \
 	&& useradd -r -g puppet -G audio,video puppet \
 	&& mkdir -p /home/puppet/Downloads /output /app \
@@ -63,6 +68,7 @@ RUN apt-get update && \
 # User added so we don't require --no-sandbox.
 
 ENV NODE_PATH="/usr/local/share/.config/yarn/global/node_modules:${NODE_PATH}"
+ENV LANG="C.UTF-8"
 
 WORKDIR /app
 
