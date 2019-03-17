@@ -7,6 +7,7 @@ ARG Puppeteer_VERSION=latest
 SHELL ["/bin/bash", "-c"]
 
 RUN Puppeteer_VERSION=$(wget -qO - "https://api.github.com/repos/GoogleChrome/puppeteer/releases/latest"|grep tag_name|cut -d\" -f4|tr -d 'v') || true && \
+    [[ -z ${Puppeteer_VERSION} ]] && Puppeteer_VERSION=latest || true && \
     echo "[i] Using Puppeteer version ${Puppeteer_VERSION}" && \
     apt-get update && \
 	apt-get install -yq \
