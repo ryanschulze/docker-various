@@ -68,6 +68,8 @@ RUN Puppeteer_VERSION=$(wget -qO - "https://api.github.com/repos/GoogleChrome/pu
 	&& chown -R puppet:puppet /usr/local/share/.config/yarn/global/node_modules
 # User added so we don't require --no-sandbox.
 
+COPY --chown=puppet:puppet ./scripts/*.js /app/
+
 ENV NODE_PATH="/usr/local/share/.config/yarn/global/node_modules:${NODE_PATH}"
 ENV LANG="C.UTF-8"
 
