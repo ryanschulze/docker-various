@@ -31,7 +31,7 @@ if (!process.argv[4]) {
 	var timeout = process.argv[4];
 }
 
-console.log("URL '%s', Searchstring: '%s', Timeout: '%i'", url, text, timeout);
+// console.log("URL '%s', Searchstring: '%s', Timeout: '%i'", url, text, timeout);
 
 const puppeteer = require('puppeteer');
 
