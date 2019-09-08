@@ -14,12 +14,6 @@ process.on('unhandledRejection', (reason, p) => {
 
 if (!process.argv[2] || !process.argv[3]) {
     console.error('ERROR: url / search string missing \n');
-    process.exit(1);
-}
-
-
-if (!process.argv[2] || !process.argv[3]) {
-    console.error('ERROR: url and filename missing \n');
 
     console.info('for example:\n');
     console.log('  docker run --shm-size 1G --sysctl net.ipv6.conf.all.disable_ipv6=1 --rm \\');
@@ -32,10 +26,12 @@ var url = process.argv[2];
 var text = process.argv[3];
 
 if (!process.argv[4]) {
-	var Timeout = 10000;
+	var timeout = 10000;
 } else {
-	var Timeout = process.argv[4];
+	var timeout = process.argv[4];
 }
+
+console.log("URL '%s', Searchstring: '%s', Timeout: '%i'", url, text, timeout);
 
 const puppeteer = require('puppeteer');
 
@@ -45,12 +41,12 @@ const puppeteer = require('puppeteer');
         headless: true,
         args: [
         '--no-sandbox',
-        '--disable-setuid-sandbox',
+        '--disable-setuid-sandbox'
         ]
     });
 
     const page = await browser.newPage();
-    await page.goto(url, {waitUntil: 'domcontentloaded', timeout: Timeout });
+    await page.goto(url, {waitUntil: 'domcontentloaded', timeout: timeout });
     try {
         await page.waitForFunction(
             text => document.querySelector('body').innerText.includes(text),
@@ -58,12 +54,12 @@ const puppeteer = require('puppeteer');
             text
         );
     } catch(e) {
-        console.log("The text -${text}- was not found on the page");
+        console.log("The string '%s' was not found on the page", text);
     }
 
     const html = await page.content();
 
-    await console.log(html);
+    console.log(html);
 
     await browser.close();
 })();
