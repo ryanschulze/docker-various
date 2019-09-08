@@ -1,4 +1,4 @@
-FROM node:10-slim
+FROM node:current-slim
 
 LABEL maintainer="Ryan Schulze - https://github.com/ryanschulze"
 LABEL description="Puppeteer"
@@ -55,19 +55,20 @@ RUN Puppeteer_VERSION=$(wget -qO - "https://api.github.com/repos/GoogleChrome/pu
 	lsb-release \
 	xdg-utils \
 	wget \
-	&& wget https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64.deb \
+	&& wget https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64.deb \
 	&& dpkg -i dumb-init_*.deb \
 	&& rm -f dumb-init_*.deb \
 	&& apt-get clean \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/* \
+	&& apt-get purge --auto-remove -y curl \
+	&& rm -rf /src/*.deb \
 	&& yarn global add puppeteer@${Puppeteer_VERSION} && yarn cache clean \
 	&& groupadd -r puppet \
 	&& useradd -r -g puppet -G audio,video puppet \
 	&& mkdir -p /home/puppet/Downloads /output /app \
 	&& chown -R puppet:puppet /home/puppet /output /app \
 	&& chown -R puppet:puppet /usr/local/share/.config/yarn/global/node_modules
-# User added so we don't require --no-sandbox.
 
 COPY --chown=puppet:puppet ./scripts/*.js /app/
 
