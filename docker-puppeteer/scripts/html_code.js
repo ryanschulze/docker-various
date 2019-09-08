@@ -63,7 +63,7 @@ if (!process.argv[4]) {
 
     const html = await page.content();
 
-    console.log(html);
+    await console.log(html);
 
     await browser.close();
 })();
