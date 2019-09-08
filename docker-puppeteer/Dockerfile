@@ -1,4 +1,4 @@
-FROM node:8-slim
+FROM node:10-slim
 
 LABEL maintainer="Ryan Schulze - https://github.com/ryanschulze"
 LABEL description="Puppeteer"
