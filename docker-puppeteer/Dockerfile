@@ -10,6 +10,7 @@ RUN Puppeteer_VERSION=$(wget -qO - "https://api.github.com/repos/GoogleChrome/pu
     [[ -z ${Puppeteer_VERSION} ]] && Puppeteer_VERSION=latest || true && \
     echo "[i] Using Puppeteer version ${Puppeteer_VERSION}" && \
     apt-get update && \
+        apt-get install -yq apt-utils && \
 	apt-get install -yq \
 	gconf-service \
 	libasound2 \
