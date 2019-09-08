@@ -12,8 +12,6 @@ process.on('unhandledRejection', (reason, p) => {
     process.exit(1);
 });
 
-const puppeteer = require('puppeteer');
-
 if (!process.argv[2] || !process.argv[3]) {
     console.error('ERROR: url / search string missing \n');
     process.exit(1);
@@ -38,6 +36,8 @@ if (!process.argv[4]) {
 } else {
 	var Timeout = process.argv[4];
 }
+
+const puppeteer = require('puppeteer');
 
 (async () => {
 
