@@ -14,13 +14,13 @@ RUN groupadd -r tools \
 	&& mkdir -p /data /output /app \
 	&& chown -R tools:tools /home/tools /data /output /app \
 	&& wget -O /app/master.zip https://github.com/bgruening/methtools/archive/master.zip \
-  && unzip -o -d /app /app/master.zip \
-  && ln -sf /app/methtools-master/methtools/ /app/methtools
+	&& unzip -o -d /app /app/master.zip \
+	&& ln -sf /app/methtools-master/methtools/ /app/methtools
 
 RUN apt-get update && \
 	apt-get install -yq apt-utils && \
 	apt-get install -yq \
-  dumb-init \
+	dumb-init \
 	wget \
 	&& apt-get clean \
 	&& apt-get autoremove -y \
