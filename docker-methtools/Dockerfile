@@ -13,7 +13,7 @@ RUN groupadd -r tools \
 	&& useradd -r -m -g tools tools \
 	&& mkdir -p /data /output /app \
 	&& chown -R tools:tools /home/tools /data /output /app \
-	&& wget -O /app/master.zip https://github.com/bgruening/methtools/archive/master.zip \
+	&& wget -O /app/master.zip https://github.com/ryanschulze/methtools/archive/master.zip \
 	&& unzip -o -d /app /app/master.zip \
 	&& ln -sf /app/methtools-master/methtools/ /app/methtools
 
