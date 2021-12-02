@@ -1,7 +1,7 @@
 FROM node:current-slim
 
 LABEL maintainer="Ryan Schulze - https://github.com/ryanschulze"
-LABEL description="Puppeteer"
+LABEL description="Latest Puppeteer"
 
 ARG Puppeteer_VERSION=latest
 SHELL ["/bin/bash", "-c"]
